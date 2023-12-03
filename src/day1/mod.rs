@@ -33,15 +33,11 @@ impl Solver for Part2 {
                 let mut digits: Vec<u32> = Vec::new();
                 let mut word = String::new();
 
-                dbg!(&line);
-
                 for character in line.unwrap().chars() {
                     if character.is_digit(10) {
                         // Number
 
-                        if let Some(digit) = word_to_digit(word) {
-                            digits.push(digit);
-                        }
+                        digits.append(&mut word_to_digits(word));
 
                         digits.push(character.to_digit(10).unwrap());
 
@@ -52,14 +48,10 @@ impl Solver for Part2 {
                     }
                 }
 
-                if let Some(digit) = word_to_digit(word) {
-                    digits.push(digit);
-                }
+                digits.append(&mut word_to_digits(word));
 
                 let first = digits.first().unwrap();
                 let last = digits.last().unwrap();
-
-                dbg!(first, last);
 
                 format!("{}{}", first, last).parse::<i32>().unwrap()
             })
@@ -69,30 +61,34 @@ impl Solver for Part2 {
     }
 }
 
-fn word_to_digit(mut word: String) -> Option<u32> {
+fn word_to_digits(mut word: String) -> Vec<u32> {
+    let mut digits: Vec<u32> = Vec::new();
+
     while word.len() > 0 {
         if word.ends_with("one") {
-            return Some(1)
+            digits.push(1);
         } else if word.ends_with("two") {
-            return Some(2)
+            digits.push(2);
         } else if word.ends_with("three") {
-            return Some(3)
+            digits.push(3);
         } else if word.ends_with("four") {
-            return Some(4)
+            digits.push(4);
         } else if word.ends_with("five") {
-            return Some(5)
+            digits.push(5);
         } else if word.ends_with("six") {
-            return Some(6)
+            digits.push(6);
         } else if word.ends_with("seven") {
-            return Some(7)
+            digits.push(7);
         } else if word.ends_with("eight") {
-            return Some(8)
+            digits.push(8);
         } else if word.ends_with("nine") {
-            return Some(9)
+            digits.push(9);
         }
 
         word.pop();
     }
 
-    None
+    digits.reverse();
+
+    digits
 }
