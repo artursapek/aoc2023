@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::{self, BufRead, BufReader};
 
 mod day1;
+mod day2;
 
 pub trait Solver {
     fn solve(self, input: BufReader<File>) -> String;
@@ -13,6 +14,7 @@ fn main() -> Result<(), io::Error> {
 
     let (part1, part2) = match day.as_str() {
         "1" => (day1::Part1().solve(get_input(&day)?), day1::Part2().solve(get_input(&day)?)),
+        "2" => (day2::Part1().solve(get_input(&day)?), day2::Part2().solve(get_input(&day)?)),
         _ => (String::from("unimplemented"), String::from("unimplemented")),
     };
 

@@ -11,7 +11,7 @@ impl Solver for Part1 {
                 let digits: Vec<char> = line
                     .unwrap()
                     .chars()
-                    .filter(|character| character.is_digit(10))
+                    .filter(|character| character.is_ascii_digit())
                     .collect();
 
                 let first = digits.first().unwrap();
@@ -34,7 +34,7 @@ impl Solver for Part2 {
                 let mut word = String::new();
 
                 for character in line.unwrap().chars() {
-                    if character.is_digit(10) {
+                    if character.is_ascii_digit() {
                         // Number
 
                         digits.append(&mut word_to_digits(word));
@@ -64,7 +64,7 @@ impl Solver for Part2 {
 fn word_to_digits(mut word: String) -> Vec<u32> {
     let mut digits: Vec<u32> = Vec::new();
 
-    while word.len() > 0 {
+    while !word.is_empty() {
         if word.ends_with("one") {
             digits.push(1);
         } else if word.ends_with("two") {
